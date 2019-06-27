@@ -1,1 +1,0 @@
-# bobu-sumisu.github.io
