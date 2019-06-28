@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <title>bf</title>
+        <style>
+            h1 {
+                writing-mode: vertical-rl;
+                text-orientation: upright;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>スミス</h1>
+
+	<div>Input <input id="in" type="text"></div>
+	<div>Program</div>
+	<div><textarea id="bf" cols="80" rows="10"></textarea></div>
+	<div>
+		<button id="run">Run</button> 
+		<input id="debug" type="checkbox"/>Log to JavaScript console
+	</div>
+	<pre id="out"></pre>
+
+	<script src=""></script>
+
+	<script>
+		function $(id) { return document.getElementById(id); }
+
+		$('bf').onkeydown = function(e) {
+			if (e.keyCode === 9) {
+				var start = this.selectionStart;
+				var end = this.selectionEnd;
+				var value = this.value;
+
+				this.value = value.substring(0, start) + '\t' + value.substring(end);
+				this.selectionStart = this.selectionEnd = start + 1;
+
+				e.preventDefault();
+			}
+		};
+
+		$('run').onclick = function() {
+			var program = $('bf').value;
+			var input = $('in').value;
+			var debug = $('debug').checked;
+			$('out').innerText = bf(program, input, debug);
+		};
+	</script>
+    </body>
+</html>
